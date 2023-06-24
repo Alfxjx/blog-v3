@@ -1,4 +1,4 @@
-export { getAll, getFileBySlug } from './markdown-getter';
+export { MarkdownReader } from './markdown-getter';
 export type {
   FileKeys,
   FileTypes,
