@@ -1,25 +1,8 @@
-import './button.css';
+import { AiOutlineArrowRight } from 'react-icons/ai';
+import { motion } from "framer-motion"
 
 interface ButtonProps {
-  /**
-   * Is this the principal call to action on the page?
-   */
-  primary?: boolean;
-  /**
-   * What background color to use
-   */
-  backgroundColor?: string;
-  /**
-   * How large should the button be?
-   */
-  size?: 'small' | 'medium' | 'large';
-  /**
-   * Button contents
-   */
-  label: string;
-  /**
-   * Optional click handler
-   */
+  label: string
   onClick?: () => void;
 }
 
@@ -27,21 +10,20 @@ interface ButtonProps {
  * Primary UI component for user interaction
  */
 export const Button = ({
-  primary = false,
-  size = 'medium',
-  backgroundColor,
   label,
   ...props
 }: ButtonProps) => {
-  const mode = primary ? 'storybook-button--primary' : 'storybook-button--secondary';
+
   return (
-    <button
-      type="button"
-      className={['storybook-button', `storybook-button--${size}`, mode].join(' ')}
-      style={{ backgroundColor }}
-      {...props}
-    >
-      {label}
-    </button>
+    <div className='rounded-lg p-2 flex justify-start bg-gray-200 w-20' title={label}>
+      <motion.button
+        type="button"
+        className='bg-blue-500 active:bg-blue-700 h-6 w-6 text-white rounded-full flex justify-center items-center'
+        {...props}
+
+      >
+        <AiOutlineArrowRight />
+      </motion.button>
+    </div>
   );
 };
