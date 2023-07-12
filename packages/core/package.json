@@ -1,5 +1,5 @@
 {
-  "name": "core",
+  "name": "@blog-v3/core",
   "private": true,
   "version": "0.0.2",
   "main": "./dist/vite-ts-lib-starter.cjs",
