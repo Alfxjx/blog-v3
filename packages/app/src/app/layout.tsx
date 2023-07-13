@@ -1,7 +1,12 @@
 import './globals.css';
-import Link from 'next/link';
+import { LinkButton } from '@/components';
 
-const HomeLink = () => <Link href="/">Home</Link>;
+const HomeLink = () => (
+  <LinkButton url='/' label='Home'></LinkButton>
+);
+const BlogLink = () => (
+  <LinkButton url='/blogs' label='Blog'></LinkButton>
+);
 
 export default function RootLayout({
   children,
@@ -10,8 +15,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
-        <HomeLink></HomeLink>
+      <body className="w-screen h-screen overflow-hidden font-mono bg-gray-950 text-white">
+        <section className="flex justify-start item-center">
+          <HomeLink></HomeLink>
+          <BlogLink></BlogLink>
+        </section>
         <header>{children}</header>
       </body>
     </html>
