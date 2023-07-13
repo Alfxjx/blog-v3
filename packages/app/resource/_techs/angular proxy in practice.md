@@ -1,13 +1,13 @@
 ---
-title: "Angular 配置代理的方法"
-excerpt: "参考官方的文档，类似于 webpack 的配置模式，看起来比较容易懂，不过在实际的应用中，还是有一些需要注意的。"
-coverImage: "/assets/blog/proxy-ng.png"
-date: "2022-10-29T16:05:00.000Z"
+title: 'Angular 配置代理的方法'
+excerpt: '参考官方的文档，类似于 webpack 的配置模式，看起来比较容易懂，不过在实际的应用中，还是有一些需要注意的。'
+coverImage: '/assets/blog/proxy-ng.png'
+date: '2022-10-29T16:05:00.000Z'
 type: tech
-tag: ["Angular"]
+tag: ['Angular']
 author:
   name: Alfxjx
-  picture: "/assets/authors/alfxjx.jpg"
+  picture: '/assets/authors/alfxjx.jpg'
 ---
 
 参考官方的文档，类似于 webpack 的配置模式，看起来比较容易懂，不过在实际的应用中，还是有一些需要注意的。
@@ -20,18 +20,18 @@ author:
 
 ```typescript
 @NgModule({
-	providers: [
-		{
-			provide: NG_APP_HOST,
-			useFactory: () => {
-				if (environment.production) {
-					return `http://${window.location.host}`;
-				} else {
-					return `/local-dev`;
-				}
-			},
-		},
-	],
+  providers: [
+    {
+      provide: NG_APP_HOST,
+      useFactory: () => {
+        if (environment.production) {
+          return `http://${window.location.host}`;
+        } else {
+          return `/local-dev`;
+        }
+      },
+    },
+  ],
 })
 export class AppModule {}
 ```
@@ -45,30 +45,30 @@ export class AppModule {}
 注入的令牌保存在 api.token.ts
 
 ```typescript
-import { InjectionToken } from "@angular/core";
-import { BehaviorSubject } from "rxjs";
+import { InjectionToken } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
-export const NG_APP_HOST = new InjectionToken<string>("ng-app-host");
+export const NG_APP_HOST = new InjectionToken<string>('ng-app-host');
 ```
 
 通过这个令牌 将配置的不同环境的前缀注入到 api.service 中；
 
 ```typescript
 @Injectable({
-	providedIn: "root",
+  providedIn: 'root',
 })
 export class ApiService {
-	constructor(
-		@Optional() @Inject(NG_APP_HOST) public host: BehaviorSubject<string>
-	) {}
+  constructor(
+    @Optional() @Inject(NG_APP_HOST) public host: BehaviorSubject<string>
+  ) {}
 
-	private wrap(api: string): string {
-		let url = "";
-		if (api.startsWith("/v1/common")) {
-			url = `${this.host}${api}`;
-		}
-		return url;
-	}
+  private wrap(api: string): string {
+    let url = '';
+    if (api.startsWith('/v1/common')) {
+      url = `${this.host}${api}`;
+    }
+    return url;
+  }
 }
 ```
 
@@ -80,13 +80,13 @@ export class ApiService {
 
 ```json
 {
-	"/local-dev/*": {
-		"target": "http://192.168.1.110:4200",
-		"secure": false,
-		"pathRewrite": {
-			"^/local-dev": ""
-		}
-	}
+  "/local-dev/*": {
+    "target": "http://192.168.1.110:4200",
+    "secure": false,
+    "pathRewrite": {
+      "^/local-dev": ""
+    }
+  }
 }
 ```
 

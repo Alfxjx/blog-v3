@@ -1,15 +1,14 @@
 ---
-title: "[译] 如何基于 D3.js 使用外部数据源创建图表"
-excerpt: "D3 是一个运行于 web 端的 Javascript 可视化库。D3 的第一个版本发布于 2011 年，并且随着社区支持的增加而成熟。对于早期版本的 D3，学习曲线有些陡峭，但对于 JavaScript 初学者来说，最新版本学习起来更容易。大多数为 Web 构建的可视化都依赖于动态数据源 —— 因此，本文的目的是使您能够在 D3 中使用外部数据源创建图表。"
-date: "2020-09-27T08:18:39.741Z"
-coverImage: "/assets/blog/d3.png"
+title: '[译] 如何基于 D3.js 使用外部数据源创建图表'
+excerpt: 'D3 是一个运行于 web 端的 Javascript 可视化库。D3 的第一个版本发布于 2011 年，并且随着社区支持的增加而成熟。对于早期版本的 D3，学习曲线有些陡峭，但对于 JavaScript 初学者来说，最新版本学习起来更容易。大多数为 Web 构建的可视化都依赖于动态数据源 —— 因此，本文的目的是使您能够在 D3 中使用外部数据源创建图表。'
+date: '2020-09-27T08:18:39.741Z'
+coverImage: '/assets/blog/d3.png'
 type: tech
-tag: ['d3js','翻译']
+tag: ['d3js', '翻译']
 author:
   name: Alfxjx
-  picture: "/assets/authors/alfxjx.jpg"
+  picture: '/assets/authors/alfxjx.jpg'
 ---
-
 
 > - 原文地址：[How to Create Charts from External Data Sources with D3.js](https://blog.bitsrc.io/how-to-create-charts-from-external-data-sources-with-d3-js-4abbcb574706)
 > - 原文作者：[Shaumik Daityari](https://medium.com/@ds_mik)
@@ -39,49 +38,49 @@ D3 是一个运行于 web 端的 Javascript 可视化库。D3 的第一个版本
 首先让我们定义标题和数据。
 
 ```js
-var title = "Comments on Posts",
-	data = [
-		{ type: "Post A", amount: 4 },
-		{ type: "Post B", amount: 2 },
-		{ type: "Post C", amount: 7 },
-		{ type: "Post D", amount: 5 },
-		{ type: "Post E", amount: 6 },
-	];
+var title = 'Comments on Posts',
+  data = [
+    { type: 'Post A', amount: 4 },
+    { type: 'Post B', amount: 2 },
+    { type: 'Post C', amount: 7 },
+    { type: 'Post D', amount: 5 },
+    { type: 'Post E', amount: 6 },
+  ];
 ```
 
 在引入 D3 的脚本库之后，你可以使用全局变量 `d3` 来进行任意的有关 D3 库的操作。接着，通过将一个标题元素追加到 `body` 标签中，从而给图标添加了一个标题。如果你是在某一个确定的 `div` 标签之中创建图表的话，可在创建标题的元素之前选中该元素。另外，如果你知道标题将会保持不变，那么应该不使用 D3 而是在页面加载的时候就将其添加进来。
 
 ```js
-d3.select("body").append("h3").text(title);
+d3.select('body').append('h3').text(title);
 ```
 
 在继续操作之前，先添加一些自定义 CSS。
 
 ```css
 body {
-	background-color: #3c3c3c;
-	color: #cfcfcf;
+  background-color: #3c3c3c;
+  color: #cfcfcf;
 }
 
 div {
-	line-height: 15px;
-	margin-bottom: 3px;
-	background-color: grey;
+  line-height: 15px;
+  margin-bottom: 3px;
+  background-color: grey;
 }
 ```
 
 此时，页面上出现了标题。你可以在样式表中为此标题定义自定义样式。接下来，在保持宽度一定的情况下，根据数据的大小设置水平柱状图的长度，创建水平柱状图。
 
 ```js
-d3.select("body")
-	.selectAll("div")
-	.data(data)
-	.enter()
-	.append("div")
-	.style("width", function (d) {
-		return d.amount * 40 + "px";
-	})
-	.style("height", "15px");
+d3.select('body')
+  .selectAll('div')
+  .data(data)
+  .enter()
+  .append('div')
+  .style('width', function (d) {
+    return d.amount * 40 + 'px';
+  })
+  .style('height', '15px');
 ```
 
 这样一来你的简单柱状图就设置完成了。你可以在 [CodePen](https://codepen.io/shaumik/pen/RwwNLQb) 上查看它。若是需要再向柱状条添加标签，可以遍历数据源从而给与之对应柱状条的 `div` 元素再添加一个文本元素。
@@ -107,10 +106,10 @@ Post E,6
 
 ```js
 d3.csv(
-	"https://raw.githubusercontent.com/sdaityari/my_git_project/master/posts.csv",
-	d3.autoType
+  'https://raw.githubusercontent.com/sdaityari/my_git_project/master/posts.csv',
+  d3.autoType
 ).then(function (data) {
-	console.log(data);
+  console.log(data);
 });
 ```
 
@@ -138,8 +137,8 @@ __proto__: Array(0)
 存在类似的功能来加载其他类型的外部文件。要加载文本文件，请使用以下代码：
 
 ```js
-d3.text("/path/to/file.txt").then(function (text) {
-	// do something
+d3.text('/path/to/file.txt').then(function (text) {
+  // do something
 });
 ```
 
@@ -147,11 +146,11 @@ d3.text("/path/to/file.txt").then(function (text) {
 
 ```js
 d3.dsv(
-	",",
-	"https://raw.githubusercontent.com/sdaityari/my_git_project/master/posts.csv",
-	d3.autoType
+  ',',
+  'https://raw.githubusercontent.com/sdaityari/my_git_project/master/posts.csv',
+  d3.autoType
 ).then(function (data) {
-	console.log(data);
+  console.log(data);
 });
 ```
 
@@ -168,18 +167,18 @@ d3.dsv(
 
 ```js
 d3.csv(
-	"https://raw.githubusercontent.com/sdaityari/my_git_project/master/posts.csv",
-	d3.autoType
+  'https://raw.githubusercontent.com/sdaityari/my_git_project/master/posts.csv',
+  d3.autoType
 ).then(function (data) {
-	d3.select("body")
-		.selectAll("div")
-		.data(data)
-		.enter()
-		.append("div")
-		.style("width", function (d) {
-			return d.amount * 40 + "px";
-		})
-		.style("height", "15px");
+  d3.select('body')
+    .selectAll('div')
+    .data(data)
+    .enter()
+    .append('div')
+    .style('width', function (d) {
+      return d.amount * 40 + 'px';
+    })
+    .style('height', '15px');
 });
 ```
 

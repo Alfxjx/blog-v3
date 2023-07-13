@@ -1,13 +1,13 @@
 ---
-title: "Migrating to Nx & Deploy on Vercel"
-excerpt: "将手头的一个 nest.js 项目添加到一个基于 Nx 的 monorepo , 添加一个 angular 的前端加入到 repo 中，使用 GitHub Actions 和 Vercel 进行自动化的部署。"
-coverImage: "/assets/blog/nx-ng-nest.png"
-date: "2022-05-08T18:06:00.000Z"
+title: 'Migrating to Nx & Deploy on Vercel'
+excerpt: '将手头的一个 nest.js 项目添加到一个基于 Nx 的 monorepo , 添加一个 angular 的前端加入到 repo 中，使用 GitHub Actions 和 Vercel 进行自动化的部署。'
+coverImage: '/assets/blog/nx-ng-nest.png'
+date: '2022-05-08T18:06:00.000Z'
 type: tech
-tag: ["Nx", "Nest.js", "Angular", "Vercel"]
+tag: ['Nx', 'Nest.js', 'Angular', 'Vercel']
 author:
   name: Alfxjx
-  picture: "/assets/authors/alfxjx.jpg"
+  picture: '/assets/authors/alfxjx.jpg'
 ---
 
 最近发现 mongodb 有一个白嫖的云数据库可以用，准备开发一个统一的后台，用来承接一下个人的项目，并且给这个后台配置一个单独的管理后台。技术选型的时候，首先选择了之前比较熟悉的、使用了类似 Spring 的 Nest.js 来开发。也因此前端的选型选择了 Angular ，然后再部署到 vercel 上面，为了能够方便的部署和开发管理，选择了 GitHub Actions 和 Nx.
@@ -69,9 +69,9 @@ npx nx build <app-name>
 
 ```json
 {
-	"@nrwl/eslint-plugin-nx": "14.0.5",
-	"@typescript-eslint/eslint-plugin": "~5.18.0",
-	"@typescript-eslint/parser": "~5.18.0"
+  "@nrwl/eslint-plugin-nx": "14.0.5",
+  "@typescript-eslint/eslint-plugin": "~5.18.0",
+  "@typescript-eslint/parser": "~5.18.0"
 }
 ```
 
@@ -104,8 +104,8 @@ npx nx serve <your-app-name> --port=3001 --inspect=false
 创建一个 ng-lib : `nx g @nrwl/angular:lib components`，新增一个名为 components 的组件库，然后在 src 下可以添加组件，记得在 src/index.ts 进行导出：
 
 ```typescript
-export { Button } from "./libs/Button/index";
-export type { ButtonProps } from "./libs/Button/index";
+export { Button } from './libs/Button/index';
+export type { ButtonProps } from './libs/Button/index';
 ```
 
 在 workspace.json 中，发现新增对应的配置。
@@ -148,7 +148,7 @@ export type { ButtonProps } from "./libs/Button/index";
 这样在 app/home-admin-web 的项目中引用的时候就可以：
 
 ```tsx
-import { Button } from "@home-mono/components";
+import { Button } from '@home-mono/components';
 ```
 
 #### utils 工具函数库
@@ -207,14 +207,14 @@ dist/apps/home-admin-web
 
 ```javascript
 module.exports = {
-	async rewrites() {
-		return [
-			{
-				source: "/blog/:slug",
-				destination: "https://example.com/blog/:slug",
-			},
-		];
-	},
+  async rewrites() {
+    return [
+      {
+        source: '/blog/:slug',
+        destination: 'https://example.com/blog/:slug',
+      },
+    ];
+  },
 };
 ```
 

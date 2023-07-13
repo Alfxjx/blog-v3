@@ -4,7 +4,7 @@ excerpt: '公司的统一登录项目之前部署在私有云上采用的是 `ne
 coverImage: '/assets/blog/nextjs.jfif'
 date: '2021-09-20T17:10:00.000Z'
 type: tech
-tag: ['next.js','react']
+tag: ['next.js', 'react']
 author:
   name: Alfxjx
   picture: '/assets/authors/alfxjx.jpg'
@@ -31,16 +31,16 @@ npx create-react-app my-app --typescript
 {
   "@reduxjs/toolkit": "^1.6.1",
   "react-redux": "^7.2.4",
-	"react-router-dom": "^5.2.1",
+  "react-router-dom": "^5.2.1",
   "redux": "^4.1.1",
   "@types/react-redux": "^7.1.18",
-	"@types/react-router-dom": "^5.1.8",
+  "@types/react-router-dom": "^5.1.8"
 }
 ```
 
 ### react-router-dom
 
-由于之前的 `next.js` 是约定式路由，改成使用  `react-router-dom`,  加之公司其他的项目都是使用的配置式的路由，所以需要对其进行改造，经过研究，在项目的 `index.tsx`引入路由，在 `App.tsx`中配置路由表。
+由于之前的 `next.js` 是约定式路由，改成使用 `react-router-dom`, 加之公司其他的项目都是使用的配置式的路由，所以需要对其进行改造，经过研究，在项目的 `index.tsx`引入路由，在 `App.tsx`中配置路由表。
 
 ```shell
 npm i -S react-router-dom
@@ -50,13 +50,12 @@ npm i -D @types/react-router-dom
 ```tsx
 import { HashRouter as Router } from 'react-router-dom';
 ReactDOM.render(
-		<React.StrictMode>
-			<Router>
-				<App />
-			</Router>
-		</React.StrictMode>
-  ,
-	document.getElementById('root')
+  <React.StrictMode>
+    <Router>
+      <App />
+    </Router>
+  </React.StrictMode>,
+  document.getElementById('root')
 );
 ```
 
@@ -64,14 +63,14 @@ ReactDOM.render(
 import { Route, Switch } from 'react-router-dom';
 export default function App() {
   return (
-		<div className="App">
-			<Switch>
-				<Route path="/login" component={Login} />
-				<Route path="/oauth" component={Oauth} />
-				<Route path="/dashboard" component={Dashboard} />
-			</Switch>
-		</div>
-	);
+    <div className="App">
+      <Switch>
+        <Route path="/login" component={Login} />
+        <Route path="/oauth" component={Oauth} />
+        <Route path="/dashboard" component={Dashboard} />
+      </Switch>
+    </div>
+  );
 }
 ```
 
@@ -114,7 +113,7 @@ function App() {
 }
 ```
 
-这样一来 `next/router`  的功能就被代替了，下面配置 `react-redux` 进行状态管理。
+这样一来 `next/router` 的功能就被代替了，下面配置 `react-redux` 进行状态管理。
 
 ### react-redux
 
@@ -130,10 +129,10 @@ import { Provider } from 'react-redux';
 import store from './store/store';
 
 ReactDOM.render(
-	<Provider store={store}>
-		<App />
-	</Provider>,
-	document.getElementById('root')
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('root')
 );
 ```
 
@@ -141,27 +140,26 @@ ReactDOM.render(
 
 ```ts
 // store.ts
-import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit'
+import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 // 按照模块划分需要保存的状态
-import userReducer from './modules/userSlice'
+import userReducer from './modules/userSlice';
 export function makeStore() {
   return configureStore({
     reducer: { user: userReducer },
-  })
+  });
 }
 
-const store = makeStore()
+const store = makeStore();
 // 导出类型
-export type AppState = ReturnType<typeof store.getState>
-export type AppDispatch = typeof store.dispatch
+export type AppState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
 export type AppThunk<ReturnType = void> = ThunkAction<
   ReturnType,
   AppState,
   unknown,
   Action<string>
->
-export default store
-
+>;
+export default store;
 ```
 
 user 模块：
@@ -171,22 +169,22 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { AppState } from '@/store/store';
 
 export interface UserState {
-	userName: string;
+  userName: string;
 }
 // 创建一个初始的状态
 const initialState: UserState = {
-	userName: '',
+  userName: '',
 };
 
 export const userSlice = createSlice({
-	name: 'user',
-	initialState,
-	reducers: {
+  name: 'user',
+  initialState,
+  reducers: {
     // 类似于 vuex mutations
-		getUserInfo: (state, { payload }: PayloadAction<UserState>) => {
-			return payload;
-		},
-	},
+    getUserInfo: (state, { payload }: PayloadAction<UserState>) => {
+      return payload;
+    },
+  },
 });
 
 export const { getUserInfo } = userSlice.actions;
@@ -194,10 +192,9 @@ export const { getUserInfo } = userSlice.actions;
 export const selectUserName = (state: AppState) => state.user.userName;
 
 export default userSlice.reducer;
-
 ```
 
-另外 `react-redux` 还提供了几个hook 用于使用：
+另外 `react-redux` 还提供了几个 hook 用于使用：
 
 ```tsx
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
@@ -215,12 +212,12 @@ export const useAppSelector: TypedUseSelectorHook<AppState> = useSelector;
 ```tsx
 import { useAppDispatch } from '@/store/hooks';
 import { getUserInfo } from '@/store/modules/userSlice';
-const App = ()=>{
+const App = () => {
   const dispatch = useAppDispatch();
-  const handleClick = (data)=>{
+  const handleClick = data => {
     dispatch(getUserInfo({ userInfo: data }));
-  }
-}
+  };
+};
 ```
 
 > 对于 异步 actions 回头再研究研究
@@ -238,19 +235,19 @@ const App = ()=>{
 const { useBabelRc, override } = require('customize-cra');
 const { alias, configPaths } = require('react-app-rewire-alias');
 
-const aliasMap = configPaths('./tsconfig.path.json')
+const aliasMap = configPaths('./tsconfig.path.json');
 
 console.log(__dirname);
 const config = override(
-	// eslint-disable-next-line
-	useBabelRc(),
-	alias(aliasMap)
+  // eslint-disable-next-line
+  useBabelRc(),
+  alias(aliasMap)
 );
 
 module.exports = config;
 ```
 
-但是后面发现每次配置的时候都需要去查对应的封装的包，有点麻烦于是索性 `eject` ，自由配置 `webpack ` . `eject` 之后主要配置项就在 `/config` 目录下了，这里的配置大同小异，不会的小朋友可以去看看 《深入浅出webpack》.
+但是后面发现每次配置的时候都需要去查对应的封装的包，有点麻烦于是索性 `eject` ，自由配置 `webpack ` . `eject` 之后主要配置项就在 `/config` 目录下了，这里的配置大同小异，不会的小朋友可以去看看 《深入浅出 webpack》.
 
 `eject`还带来了一个目录 `/scripts` 里面写了打包编译的脚本文件，一般不用动，有时间可以看下，在启动项目和打包的时候 `create-react-app`到底做了什么工作。
 
@@ -262,15 +259,15 @@ module.exports = config;
 
 1. 在 `.env` 文件里 以 `REACT_APP_` 开头配置地址等文件
 
-2. 创建 `/src/types/index.d.ts`  声明一些静态文件的类型
+2. 创建 `/src/types/index.d.ts` 声明一些静态文件的类型
 
- ```typescript
-   declare module '*.svg';
-   declare module '*.png';
-   declare module '*.jpg';
-   declare module '*.jpeg';
-   declare module '*.gif';
- ```
+```typescript
+declare module '*.svg';
+declare module '*.png';
+declare module '*.jpg';
+declare module '*.jpeg';
+declare module '*.gif';
+```
 
 3. 设置别名和 `baseUrl`
 
@@ -285,6 +282,6 @@ module.exports = config;
    }
    ```
 
- ## 后记
+## 后记
 
 这个文章告诉我们的道理是，技术选型首先要慎重，根据项目的场景选择最合适的技术栈；其次是要选择熟悉的技术，否则后面的维护会受到影响；还有就是一旦遇到问题，当发现技术确实与现有的业务不匹配的时候，抓紧时间进行切换，减少沉默成本。

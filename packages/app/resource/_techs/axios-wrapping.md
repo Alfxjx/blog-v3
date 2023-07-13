@@ -1,13 +1,13 @@
 ---
-title: "On Axios Requests & Wrapping"
-excerpt: "前后端交互最常见的就是 `http` 请求，为了提高效率，需要对 `http` 请求进行封装，目前的现代开发过程中，可以使用 Axios，一种对于 `http` 请求的封装，或者是`fetch`，全新的异步请求`api`，本文主要是介绍我们项目中是如何根据后端返回的类型，对请求进行封装。"
-coverImage: "/assets/blog/axios.jpg"
-date: "2022-02-22T14:22:22.712Z"
+title: 'On Axios Requests & Wrapping'
+excerpt: '前后端交互最常见的就是 `http` 请求，为了提高效率，需要对 `http` 请求进行封装，目前的现代开发过程中，可以使用 Axios，一种对于 `http` 请求的封装，或者是`fetch`，全新的异步请求`api`，本文主要是介绍我们项目中是如何根据后端返回的类型，对请求进行封装。'
+coverImage: '/assets/blog/axios.jpg'
+date: '2022-02-22T14:22:22.712Z'
 type: tech
-tag: ["Axios", "Next.js", "TypeScript"]
+tag: ['Axios', 'Next.js', 'TypeScript']
 author:
   name: Alfxjx
-  picture: "/assets/authors/alfxjx.jpg"
+  picture: '/assets/authors/alfxjx.jpg'
 ---
 
 ## why axios？
@@ -51,13 +51,13 @@ author:
 一般来说 baseURL 是不太会改变的,如果项目如果是比较稳定的话，可以把全局的设置也写上，如： `withCredentials`
 
 ```typescript
-axios.defaults.headers.post["Content-Type"] = "application/json";
+axios.defaults.headers.post['Content-Type'] = 'application/json';
 axios.defaults.withCredentials = true;
-const baseURL = NODE_ENV === "development" ? "/api" : VUE_APP_PROD_API;
+const baseURL = NODE_ENV === 'development' ? '/api' : VUE_APP_PROD_API;
 
 // 基本的axios实例
 const axiosBase = axios.create({
-	baseURL: baseURL,
+  baseURL: baseURL,
 });
 ```
 
@@ -66,7 +66,7 @@ const axiosBase = axios.create({
 ```typescript
 // next.js 之类的 jamstack，可以自己生成 api routes 的，具有不同的 backend
 const axioRoutes = axios.create({
-	baseURL: "/api-routes",
+  baseURL: '/api-routes',
 });
 ```
 
@@ -76,26 +76,26 @@ const axioRoutes = axios.create({
 
 ```typescript
 axiosBase.interceptors.request.use((config: AxiosRequestConfig) => {
-	const token = sessionStorage.getItem("token");
-	if (token && config.headers) {
-		config.headers.Authorization = `Bearer ${token}`;
-	}
-	return config;
+  const token = sessionStorage.getItem('token');
+  if (token && config.headers) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
 });
 axiosBase.interceptors.response.use(
-	(res: AxiosResponse<IResponse<any>>) => {
-		if (!res) {
-			return false;
-		}
-		if (Object.prototype.hasOwnProperty.call(res.data, "token")) {
-			sessionStorage.setItem("token", res.data.token as string);
-		}
-		return res;
-	},
-	(err: AxiosError<{ errorMessage: string; success: boolean }>) => {
-		// handle the error
-		return Promise.reject(err);
-	}
+  (res: AxiosResponse<IResponse<any>>) => {
+    if (!res) {
+      return false;
+    }
+    if (Object.prototype.hasOwnProperty.call(res.data, 'token')) {
+      sessionStorage.setItem('token', res.data.token as string);
+    }
+    return res;
+  },
+  (err: AxiosError<{ errorMessage: string; success: boolean }>) => {
+    // handle the error
+    return Promise.reject(err);
+  }
 );
 ```
 
@@ -111,10 +111,10 @@ axiosBase.interceptors.response.use(
 
 ```typescript
 export interface IResponse<T> {
-	data: T;
-	errorMessage: string;
-	success: boolean;
-	token?: string;
+  data: T;
+  errorMessage: string;
+  success: boolean;
+  token?: string;
 }
 ```
 
@@ -122,24 +122,24 @@ export interface IResponse<T> {
 
 ```typescript
 axiosBase.interceptors.response.use(
-	(res: AxiosResponse<IResponse<any>>) => {
-		if (!res) {
-			return false;
-		}
-		if (!res.data.success) {
-			notify.warning(res.data.errorMessage);
-		}
-		// token...
-	},
-	(err: AxiosError<{ errorMessage: string; success: boolean }>) => {
-		notify.error(err.response?.data.errorMessage as string);
-		if (err.response?.status === 401 && isNoAuth(window.location.pathname)) {
-			setTimeout(() => {
-				window.location.href = "/person/login";
-			}, 1000);
-		}
-		return Promise.reject(err);
-	}
+  (res: AxiosResponse<IResponse<any>>) => {
+    if (!res) {
+      return false;
+    }
+    if (!res.data.success) {
+      notify.warning(res.data.errorMessage);
+    }
+    // token...
+  },
+  (err: AxiosError<{ errorMessage: string; success: boolean }>) => {
+    notify.error(err.response?.data.errorMessage as string);
+    if (err.response?.status === 401 && isNoAuth(window.location.pathname)) {
+      setTimeout(() => {
+        window.location.href = '/person/login';
+      }, 1000);
+    }
+    return Promise.reject(err);
+  }
 );
 ```
 
@@ -149,21 +149,21 @@ axiosBase.interceptors.response.use(
 
 ```typescript
 const httpFuncs = {
-	post<T>(
-		url: string,
-		data: any,
-		config?: AxiosRequestConfig
-	): Promise<AxiosResponse<IResponse<T>>> {
-		return new Promise((resolve, reject) => {
-			axiosInstance
-				.post(url, data, config)
-				.then((res: AxiosResponse<IResponse<T>>) => resolve(res))
-				// http error
-				.catch((err: AxiosError<IErrorProps>) => {
-					console.log(err.response);
-				});
-		});
-	},
+  post<T>(
+    url: string,
+    data: any,
+    config?: AxiosRequestConfig
+  ): Promise<AxiosResponse<IResponse<T>>> {
+    return new Promise((resolve, reject) => {
+      axiosInstance
+        .post(url, data, config)
+        .then((res: AxiosResponse<IResponse<T>>) => resolve(res))
+        // http error
+        .catch((err: AxiosError<IErrorProps>) => {
+          console.log(err.response);
+        });
+    });
+  },
 };
 ```
 
@@ -179,21 +179,21 @@ const httpFuncs = {
 
 ```typescript
 enum enumType {
-	BASE,
-	MOCK,
+  BASE,
+  MOCK,
 }
 
 export class HttpFactory {
-	public static getHttp(type: enumType) {
-		switch (type) {
-			case enumType.BASE:
-				return http;
-			case enumType.MOCK:
-				return httpMock;
-			default:
-				return http;
-		}
-	}
+  public static getHttp(type: enumType) {
+    switch (type) {
+      case enumType.BASE:
+        return http;
+      case enumType.MOCK:
+        return httpMock;
+      default:
+        return http;
+    }
+  }
 }
 ```
 

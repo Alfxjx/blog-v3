@@ -6,27 +6,25 @@ author:
   picture: '/assets/authors/alfxjx.jpg'
 ---
 
-## Hello 
+## Hello
 
 > This is something about me.
 
-I'm Xu Jianxiang, a **frontend developer** work in Fintech/Indutry. 
+I'm Xu Jianxiang, a **frontend developer** work in Fintech/Indutry.
 
-Using *Vue.js, React, Next.js, Webpack* and other popular web dev libs or frameworks.
+Using _Vue.js, React, Next.js, Webpack_ and other popular web dev libs or frameworks.
 
 Things I like to do:
 
-  1. coding
-  2. gaming
-  3. swimming
-  4. cooking
+1. coding
+2. gaming
+3. swimming
+4. cooking
 
-
-**Forever love girl**:  Miss Zhang.
+**Forever love girl**: Miss Zhang.
 
 Contact me on [xjxtju@163.com](mailto:xjxtju@163.com) / [xujianxiang@abandon.work](mailto:xujianxiang@abandon.work)
 
 or weChat: eGp4NTg0OTcyMDI5
 
 Click here to decode [Base64](https://tool.ip138.com/base64/)
-

@@ -1,9 +1,9 @@
 ---
-title: "Short Thoughts"
-date: "2022-05-16T18:00:00.000Z"
+title: 'Short Thoughts'
+date: '2022-05-16T18:00:00.000Z'
 author:
   name: Alfxjx
-  picture: "/assets/authors/alfxjx.jpg"
+  picture: '/assets/authors/alfxjx.jpg'
 ---
 
 一些简短的感想。

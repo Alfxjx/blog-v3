@@ -1,15 +1,14 @@
 ---
-title: "CSS 的 RGB 颜色覆盖"
-excerpt: "浅薄的研究了一下，希望可以和我讨论"
-date: "2020-09-27T08:18:39.741Z"
-coverImage: "/assets/blog/css-rgb.jpeg"
+title: 'CSS 的 RGB 颜色覆盖'
+excerpt: '浅薄的研究了一下，希望可以和我讨论'
+date: '2020-09-27T08:18:39.741Z'
+coverImage: '/assets/blog/css-rgb.jpeg'
 type: tech
 tag: ['CSS']
 author:
   name: Alfxjx
-  picture: "/assets/authors/alfxjx.jpg"
+  picture: '/assets/authors/alfxjx.jpg'
 ---
-
 
 > 最近逛论坛，看到一个[帖子](https://www.v2ex.com/t/653679#reply73)，里面有一个回复很有意思：
 >
@@ -35,10 +34,10 @@ author:
 
 ```css
 background-color: rgba(
-	r1 * (1-alpha) + r2 * alpha,
-	g1 * (1-alpha) + g2 * alpha,
-	b1 * (1-alpha) + b2 * alpha,
-	1
+  r1 * (1-alpha) + r2 * alpha,
+  g1 * (1-alpha) + g2 * alpha,
+  b1 * (1-alpha) + b2 * alpha,
+  1
 );
 ```
 

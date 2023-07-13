@@ -1,13 +1,13 @@
 ---
-title: "类型计算 & Typescript"
-excerpt: "高质量的类型可以提高项目的可维护性并避免一些潜在的漏洞。"
-coverImage: "/assets/blog/leetcode.jpeg"
-date: "2022-07-30T15:42:22.712Z"
+title: '类型计算 & Typescript'
+excerpt: '高质量的类型可以提高项目的可维护性并避免一些潜在的漏洞。'
+coverImage: '/assets/blog/leetcode.jpeg'
+date: '2022-07-30T15:42:22.712Z'
 type: tech
-tag: ["Typescript"]
+tag: ['Typescript']
 author:
   name: Alfxjx
-  picture: "/assets/authors/alfxjx.jpg"
+  picture: '/assets/authors/alfxjx.jpg'
 ---
 
 ## 引言
@@ -45,7 +45,7 @@ TypeScript 是 JavaScript 的超集，也就是说：
 ```javascript
 function findObjByKey(objArr, key, value) {
   const res = {};
-  objArr.forEach((x) => {
+  objArr.forEach(x => {
     if (x[key] === value) {
       Object.assign(res, x);
     }
@@ -56,15 +56,15 @@ function findObjByKey(objArr, key, value) {
 const source = [
   {
     id: 1,
-    name: "zhangsan",
+    name: 'zhangsan',
   },
   {
     id: 2,
-    name: "alfxjx",
+    name: 'alfxjx',
   },
 ];
 const id = 1;
-const targetName = findObjByKey(source, "id", id)["name"];
+const targetName = findObjByKey(source, 'id', id)['name'];
 // 'zhangsan'
 ```
 
@@ -80,10 +80,10 @@ const source = [
     id: 1,
     userInfo: {
       userId: 12345,
-      userName: "zhangsan",
+      userName: 'zhangsan',
       email: {
-        value: "zhangsan@abandon.work",
-        domain: "abandon.work",
+        value: 'zhangsan@abandon.work',
+        domain: 'abandon.work',
       },
     },
   },
@@ -112,10 +112,10 @@ const source: User[] = [
     id: 1,
     userInfo: {
       userId: 12345,
-      userName: "zhangsan",
+      userName: 'zhangsan',
       email: {
-        value: "zhangsan@abandon.work",
-        domain: "abandon.work",
+        value: 'zhangsan@abandon.work',
+        domain: 'abandon.work',
       },
     },
   },
@@ -123,7 +123,7 @@ const source: User[] = [
 
 function findObjByKey<T>(objArr: T[], key: keyof T, value: T[keyof T]): T {
   const res = {} as T;
-  objArr.forEach((x) => {
+  objArr.forEach(x => {
     if (x[key] === value) {
       Object.assign(res, x);
     }
@@ -131,7 +131,7 @@ function findObjByKey<T>(objArr: T[], key: keyof T, value: T[keyof T]): T {
   return res;
 }
 // 尝试输入这一行
-const email = findObjByKey(source, "id", 1)["userInfo"].email["value"];
+const email = findObjByKey(source, 'id', 1)['userInfo'].email['value'];
 ```
 
 使用的时候是这样的：
@@ -153,7 +153,7 @@ const email = findObjByKey(source, "id", 1)["userInfo"].email["value"];
 我们知道在 JS 中有很多方式，一个比较常用的方法就是使用正则表达式来判断。考虑一个最简的情况，一个邮箱地址分成三部分：邮箱名称 + @ + 域名（组织名称+.后缀），或许用 TS 也可以很好的描述
 
 ```javascript
-const _isValidEmail: (email: string) => boolean = (email) => {
+const _isValidEmail: (email: string) => boolean = email => {
   const isEmailRegex = new RegExp(/.+\@.+\..+/);
   return isEmailRegex.test(email);
 };
@@ -162,19 +162,22 @@ const _isValidEmail: (email: string) => boolean = (email) => {
 但是这样一来返回的是 Boolean，那如果我想知道在开发阶段就知道输入的邮箱是否正确的话（虽然这个没啥意义。）可以借助 TS 来实现：
 
 ```typescript
-type ParseEmail<T extends string> = T extends `${infer P}@${infer A}.${infer Rest}` ? true : false;
-const rightEmail = "xujianxiang@abandon.work";
+type ParseEmail<T extends string> =
+  T extends `${infer P}@${infer A}.${infer Rest}` ? true : false;
+const rightEmail = 'xujianxiang@abandon.work';
 
 const valid = _isValidEmail(rightEmail); // const valid: true
-const noValid = _isValidEmail(""); // const noValid: false
+const noValid = _isValidEmail(''); // const noValid: false
 ```
 
 这里使用了一个 infer 关键字，和 extends 关键字配合可以发挥出类似于解构赋值的功能。简单来说就是我推断传入的类型 T 是一个基于 string 扩展的类型，对于这个类型，判断其字符串内部的格式是否为 `aaa@bb.cc` 的格式，返回一个 Boolean。
 另外的，考虑上一个例子里面的场景，用户提交用户信息的时候，需要在提交邮箱地址之外，另外传一个域名提供商信息：
 
 ```typescript
-type ParseEmailString<T extends string> = T extends `${infer P}@${infer A}.${infer Rest}` ? T : unknown;
-type ParseEmailProvider<T extends string> = T extends `${infer P}@${infer A}.${infer Rest}` ? `${A}.${Rest}` : unknown;
+type ParseEmailString<T extends string> =
+  T extends `${infer P}@${infer A}.${infer Rest}` ? T : unknown;
+type ParseEmailProvider<T extends string> =
+  T extends `${infer P}@${infer A}.${infer Rest}` ? `${A}.${Rest}` : unknown;
 
 type EmailObj<Email extends string> = {
   email: ParseEmailString<Email>;
@@ -184,7 +187,7 @@ type EmailObj<Email extends string> = {
 function getEmailObj<T extends string>(email: T): EmailObj<T> {
   return {
     email: email,
-    provider: email.split("@")[1],
+    provider: email.split('@')[1],
   } as any;
 }
 
@@ -213,7 +216,7 @@ declare function Vuex<M, N>(options: VuexOptions<M, N>): Store<M, N>;
 
 const store = Vuex({
   // 这里提示编译器，N泛型即为字符串'cart',无需对他进行推断了
-  namespace: "cart" as const,
+  namespace: 'cart' as const,
   mutations: {
     // 简写，实际是 add: function(){}
     add() {},
@@ -221,8 +224,8 @@ const store = Vuex({
   },
 });
 
-store.dispatch("cart/add");
-store.dispatch("cart/remove");
+store.dispatch('cart/add');
+store.dispatch('cart/remove');
 ```
 
 原文章的地址在这里：
@@ -234,7 +237,9 @@ store.dispatch("cart/remove");
 > 这里预设了地址栏里面的 id 是 number 类型，而后续的 ...args 是一个 string[]
 
 ```typescript
-type IsParameter<Part> = Part extends `[${infer ParamName}]` ? ParamName : never;
+type IsParameter<Part> = Part extends `[${infer ParamName}]`
+  ? ParamName
+  : never;
 type FilteredParts<Path> = Path extends `${infer PartA}/${infer PartB}`
   ? IsParameter<PartA> | FilteredParts<PartB>
   : IsParameter<Path>;
@@ -249,7 +254,7 @@ function get<Path extends string>(path: Path, callback: CallbackFn<Path>) {
   // TODO: implement
 }
 
-app.get("/purchase/[shopid]/[itemid]/args/[...args]", () => {
+app.get('/purchase/[shopid]/[itemid]/args/[...args]', () => {
   const { params } = req;
   // params: {
   //  shopid: number;

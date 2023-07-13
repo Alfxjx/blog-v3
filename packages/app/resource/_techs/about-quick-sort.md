@@ -1,13 +1,13 @@
 ---
-title: "Fighting with LeetCode -- 刷题记录一点思考"
-excerpt: "刷题记录长期更新，最新的更新是快速排序"
-coverImage: "/assets/blog/leetcode.jpeg"
-date: "2022-03-16T15:42:22.712Z"
+title: 'Fighting with LeetCode -- 刷题记录一点思考'
+excerpt: '刷题记录长期更新，最新的更新是快速排序'
+coverImage: '/assets/blog/leetcode.jpeg'
+date: '2022-03-16T15:42:22.712Z'
 type: tech
-tag: ["Leetcode"]
+tag: ['Leetcode']
 author:
   name: Alfxjx
-  picture: "/assets/authors/alfxjx.jpg"
+  picture: '/assets/authors/alfxjx.jpg'
 ---
 
 ## 关于快速排序
@@ -16,23 +16,23 @@ author:
 
 ```javascript
 function sortArr(arr) {
-	if (arr.length <= 1) return arr;
-	let mid = Math.floor(arr.length / 2);
-	// 这里没有使用splice方法去改变原数组，原因是 mid 是存在重复的情况。
-	let left = [];
-	let right = [];
-	let mids = [];
-	for (let i = 0; i < arr.length; i++) {
-		if (arr[i] < arr[mid]) {
-			left.push(arr[i]);
-		} else if (arr[i] > arr[mid]) {
-			right.push(arr[i]);
-		} else {
-			// 对于有重复的情况，需要把重复的放到一起
-			mids.push(arr[i]);
-		}
-	}
-	// 其他和原文是一样的
-	return [...sortArr(left), ...mids, ...sortArr(right)];
+  if (arr.length <= 1) return arr;
+  let mid = Math.floor(arr.length / 2);
+  // 这里没有使用splice方法去改变原数组，原因是 mid 是存在重复的情况。
+  let left = [];
+  let right = [];
+  let mids = [];
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] < arr[mid]) {
+      left.push(arr[i]);
+    } else if (arr[i] > arr[mid]) {
+      right.push(arr[i]);
+    } else {
+      // 对于有重复的情况，需要把重复的放到一起
+      mids.push(arr[i]);
+    }
+  }
+  // 其他和原文是一样的
+  return [...sortArr(left), ...mids, ...sortArr(right)];
 }
 ```

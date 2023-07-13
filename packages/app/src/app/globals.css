@@ -2,5 +2,4 @@
 @tailwind components;
 @tailwind utilities;
 
-@import '@blog-v3/lib/dist/style.css'
-
+@import '@blog-v3/lib/dist/style.css';
