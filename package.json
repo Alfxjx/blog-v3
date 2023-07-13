@@ -8,7 +8,8 @@
     "build": "npm-run-all -p build:core build:lib",
     "build:core": "pnpm --filter @blog-v3/core build",
     "build:lib": "pnpm --filter @blog-v3/lib build",
-    "dev": "pnpm --filter @blog-v3/app dev"
+    "dev": "pnpm --filter @blog-v3/app dev",
+    "lint": "prettier -w ./packages"
   },
   "keywords": [],
   "author": "",
