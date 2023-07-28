@@ -6,7 +6,7 @@ import { Tag } from '@/components/tag';
 export default async function Blogs() {
   const files = await getData();
   return (
-    <div className="py-10 px-7">
+    <div className="p-7">
       <div className="w-full sm:w-4/6 mx-auto">
         {files.map(x => (
           <div key={x.slug} className="flex justify-start items-start my-2">
@@ -20,10 +20,11 @@ export default async function Blogs() {
             >
               {x.type}
             </Tag>
-
-            <Link href={`/blogs/${x.slug}?fileType=${x.fileType}`} className='flex-1'>
-              {x.title}
-            </Link>
+            <section className="flex-1">
+              <Link href={`/blogs/${x.slug}?fileType=${x.fileType}`}>
+                {x.title}
+              </Link>
+            </section>
           </div>
         ))}
       </div>
