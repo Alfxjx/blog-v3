@@ -3,7 +3,7 @@ export type {
   FileKeys,
   FileTypes,
   ResponseItem,
-} from './markdown-getter/type.d';
+} from './markdown-getter';
 
 export { markdownToHtml } from './markdown-getter/markdownToHtml';
 
