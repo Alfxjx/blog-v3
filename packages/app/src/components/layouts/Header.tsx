@@ -11,9 +11,9 @@ const CaveatFont = localFont({
 
 export function Header() {
   return (
-    <section className="flex-0 flex justify-start item-center text-lg box-border p-2 border-b-[1px]">
+    <section className="flex-0 flex justify-start item-center box-border p-2 border-b-[1px]">
       <div className="mr-2">
-        <p className={CaveatFont.className}>Alfr3d</p>
+        <p className={`${CaveatFont.className}`}>Alfr3d</p>
       </div>
       <HomeLink></HomeLink>
       <BlogLink></BlogLink>
