@@ -2,6 +2,7 @@
 import path from 'path';
 import { defineConfig } from 'vite';
 import { nodePolyfills } from 'vite-plugin-node-polyfills';
+import dts from 'vite-plugin-dts';
 import packageJson from './package.json';
 
 const getPackageName = () => {
@@ -30,6 +31,9 @@ module.exports = defineConfig({
   plugins: [
     nodePolyfills({
       protocolImports: true,
+    }),
+    dts({
+      insertTypesEntry: true,
     }),
   ],
 });

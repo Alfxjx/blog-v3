@@ -1,12 +1,9 @@
 import './globals.css';
-import { LinkButton } from '@/components';
 
-const HomeLink = () => (
-  <LinkButton url='/' label='Home'></LinkButton>
-);
-const BlogLink = () => (
-  <LinkButton url='/blogs' label='Blog'></LinkButton>
-);
+import { Footer } from '@/components/layouts/Footer';
+import { Header } from '@/components/layouts/Header';
+
+
 
 export default function RootLayout({
   children,
@@ -15,12 +12,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="w-screen h-screen overflow-hidden font-mono bg-gray-950 text-white">
-        <section className="flex justify-start item-center">
-          <HomeLink></HomeLink>
-          <BlogLink></BlogLink>
-        </section>
-        <header>{children}</header>
+      <body className="min-h-screen font-mono flex flex-col">
+        <Header></Header>
+        <main className="flex-1">{children}</main>
+        <Footer />
       </body>
     </html>
   );

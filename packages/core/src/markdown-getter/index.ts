@@ -2,8 +2,6 @@ import fs from 'node:fs';
 import { join } from 'node:path';
 import matter from 'gray-matter';
 
-import { FileKeys, ResponseItem, FileTypes } from './type.d';
-
 export class MarkdownReader {
   path: string;
 
@@ -20,12 +18,25 @@ export class MarkdownReader {
     return fs.readdirSync(directory);
   }
 
-  getFileBySlug(fileType: FileTypes, slug: string, fields: FileKeys[] = []) {
-    const realSlug = slug.replace(/\.md$/, '');
-    const fullPath = join(this.getDirectory(fileType), slug);
+  getFileBySlug(
+    fileType: FileTypes,
+    slug: string,
+    fields: FileKeys[] = [],
+    mode: 'dir' | 'file' = 'dir'
+  ) {
+    let realSlug = '';
+    if (mode === 'dir') {
+      realSlug = slug.replace(/\.md$/, '');
+    }
+    const fullPath =
+      mode === 'dir'
+        ? join(this.getDirectory(fileType), slug)
+        : join(this.getDirectory(fileType), slug) + '.md';
+
     const fileContents = fs.readFileSync(fullPath, 'utf8');
     const { data, content } = matter(fileContents);
-    const items: ResponseItem = {};
+    const items: ResponseItem = {} as ResponseItem;
+    items['fileType'] = fileType;
     fields.forEach(field => {
       if (field === 'slug') {
         items[field] = realSlug;
@@ -57,3 +68,27 @@ export class MarkdownReader {
     return post1.date > post2.date ? -1 : 1;
   }
 }
+
+type FileKeys = FileKeyStr | 'author';
+
+type FileKeyStr =
+  | 'title'
+  | 'date'
+  | 'type'
+  | 'tag'
+  | 'slug'
+  | 'content'
+  | 'coverImage'
+  | 'excerpt'
+  | 'fileType';
+
+type ResponseItem = Record<FileKeyStr, string> & {
+  author: {
+    name: string;
+    picture: string;
+  };
+};
+
+type FileTypes = '_techs' | '_blogs' | '_about' | '_short';
+
+export { FileKeys, ResponseItem, FileTypes };

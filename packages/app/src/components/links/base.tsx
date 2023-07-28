@@ -1,9 +1,9 @@
 import Link from 'next/link';
 
-type ILink = { url: string; label: string };
+type ILink = { href: string; label: string };
 
-const LinkButton = ({ url, label }: ILink) => (
-  <Link className="mx-2" href={url}>
+const LinkButton = ({ href, label }: ILink) => (
+  <Link className="mx-2" href={href}>
     {label}
   </Link>
 );
