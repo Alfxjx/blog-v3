@@ -53,9 +53,6 @@ importers:
 
   packages/app:
     dependencies:
-      '@blog-v3/core':
-        specifier: workspace:*
-        version: link:../core
       '@blog-v3/lib':
         specifier: workspace:*
         version: link:../lib
