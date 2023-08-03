@@ -14,7 +14,7 @@ export default async function Page({
     decodeURIComponent(params.slug)
   );
   return (
-    <div className="w-full max-w-prose mx-auto">
+    <div className="w-full max-w-prose mx-auto px-2">
       <h1 className="text-2xl font-bold my-4">{data.title}</h1>
       <div className="flex items-center justify-start mb-2">
         <img
@@ -25,7 +25,7 @@ export default async function Page({
         <section>{data.author.name}</section>
       </div>
       <article
-        className="prose prose-slate dark:prose-invert prose-h2:my-2 px-2"
+        className="prose dark:prose-invert prose-h2:my-2"
         dangerouslySetInnerHTML={{ __html: contentInHTML }}
       ></article>
       <div className="flex justify-between py-4">
