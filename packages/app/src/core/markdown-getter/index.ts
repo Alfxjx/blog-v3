@@ -91,4 +91,4 @@ type ResponseItem = Record<FileKeyStr, string> & {
 
 type FileTypes = '_techs' | '_blogs' | '_about' | '_short';
 
-export { FileKeys, ResponseItem, FileTypes };
+export type { FileKeys, ResponseItem, FileTypes };
