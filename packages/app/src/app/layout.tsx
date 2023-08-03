@@ -18,7 +18,7 @@ export default function RootLayout({
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Header></Header>
-          <main className="flex-1">{children}</main>
+          <main className="flex-1 mt-10">{children}</main>
           <Footer />
           <TailwindIndicator />
         </ThemeProvider>

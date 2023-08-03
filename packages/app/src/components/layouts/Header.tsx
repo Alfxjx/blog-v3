@@ -11,7 +11,7 @@ const ShortLink = () => <LinkButton href="/short" label="Short"></LinkButton>;
 
 function Header() {
   return (
-    <section className="flex-0 flex justify-between item-center box-border p-2 border-b-[1px]">
+    <section className="flex-0 flex justify-between item-center box-border p-2 border-b-[1px] fixed top-0 left-0 w-full bg-white dark:bg-black">
       <div className="mr-2">
         <Link href={'/'}>
           <p className={cn(caveat.className)}>Alfr3d</p>
