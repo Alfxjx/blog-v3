@@ -1,3 +1,9 @@
-import { MarkdownReader } from "@blog-v3/core";
+import { MarkdownReader } from '@/core';
+import { ClassValue, clsx } from 'clsx';
+import { twMerge } from 'tailwind-merge';
 
-export const markdownReader = new MarkdownReader('resource')
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+
+export const markdownReader = new MarkdownReader('resource');

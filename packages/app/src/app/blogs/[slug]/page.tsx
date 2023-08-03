@@ -1,5 +1,6 @@
+import { Tag } from '@/components/tag';
+import { markdownToHtml, FileTypes, formatDate } from '@/core';
 import { markdownReader } from '@/utils';
-import { FileTypes } from '@blog-v3/core';
 
 export default async function Page({
   params,
@@ -8,27 +9,40 @@ export default async function Page({
   params: { slug: string };
   searchParams: { fileType: FileTypes };
 }) {
-  const data = await getData(
+  const { contentInHTML, ...data } = await getData(
     searchParams.fileType,
     decodeURIComponent(params.slug)
   );
   return (
-    <div className="w-full">
-      <h2>{data.title}</h2>
-      <span>{data.tag}</span>
-      <time>{data.date}</time>
-      <section>{data.author.name}</section>
-      <article>{data.content}</article>
+    <div className="w-full max-w-prose mx-auto">
+      <h1 className="text-2xl font-bold my-4">{data.title}</h1>
+      <div className="flex items-center justify-start mb-2">
+        <img
+          src={data.author.picture}
+          className="w-6 rounded-full shadow"
+          alt="avatar"
+        />
+        <section>{data.author.name}</section>
+      </div>
+      <article
+        className="prose prose-slate dark:prose-invert prose-h2:my-2 px-2"
+        dangerouslySetInnerHTML={{ __html: contentInHTML }}
+      ></article>
+      <div className="flex justify-between py-4">
+        <Tag className="text-black text-center bg-zinc-400">{data.tag}</Tag>
+        <time>{formatDate(new Date(data.date), 'yyyy-MM-dd')}</time>
+      </div>
     </div>
   );
 }
 
 async function getData(fileType: FileTypes, slug: string) {
-  const file = markdownReader.getFileBySlug(
+  const file = await markdownReader.getFileBySlug(
     fileType,
     slug,
     ['content', 'coverImage', 'date', 'tag', 'title', 'author'],
     'file'
   );
-  return file;
+  const contentInHTML = await markdownToHtml(file.content);
+  return { contentInHTML, ...file };
 }
