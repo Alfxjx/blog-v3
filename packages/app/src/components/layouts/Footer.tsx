@@ -1,4 +1,6 @@
 import Link from 'next/link';
+import { ThemeToggle } from '../theme/theme-toggle';
+import { HomeLink, BlogLink, AboutLink, ShortLink } from './Header';
 
 export function Footer() {
   const thisYear = new Date().getFullYear();
@@ -14,10 +16,17 @@ export function Footer() {
         <Link className="mx-1" href="https://vercel.com">
           Vercel
         </Link>
-      </div>
-      <div>
         <span className="text-red-500">♥</span>
         <span className="mx-1">2020-{thisYear}</span>
+      </div>
+      <div className="flex items-center">
+        <HomeLink></HomeLink>
+        <BlogLink></BlogLink>
+        <AboutLink></AboutLink>
+        <ShortLink></ShortLink>
+        <span className="ml-2">
+          <ThemeToggle />
+        </span>
       </div>
     </footer>
   );

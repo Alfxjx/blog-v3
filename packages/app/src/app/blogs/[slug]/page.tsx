@@ -25,7 +25,7 @@ export default async function Page({
         <section>{data.author.name}</section>
       </div>
       <article
-        className="prose prose-slate dark:prose-invert prose-h2:my-2 px-2"
+        className="prose dark:prose-invert prose-h2:my-2 px-2"
         dangerouslySetInnerHTML={{ __html: contentInHTML }}
       ></article>
       <div className="flex justify-between py-4">
