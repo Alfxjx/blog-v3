@@ -1,5 +1,5 @@
 import { markdownReader } from '@/utils';
-import { FileKeys, formatDate } from '@blog-v3/core';
+import { FileKeys, formatDate } from '@/core';
 import Link from 'next/link';
 import { Tag } from '@/components/tag';
 

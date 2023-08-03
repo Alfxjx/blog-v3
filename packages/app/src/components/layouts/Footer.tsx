@@ -4,7 +4,7 @@ export function Footer() {
   const thisYear = new Date().getFullYear();
 
   return (
-    <footer className="flex flex-col items-center py-2 bg-neutral-200 text-gray-700 text-sm">
+    <footer className="flex flex-col items-center py-2 bg-neutral-200 text-gray-700 dark:bg-neutral-700 dark:text-gray-200 text-sm">
       <div>
         <span className="mx-1">Powerd by</span>
         <Link className="mx-1" href="https://nextjs.org">
