@@ -7,24 +7,24 @@ export default async function Blogs() {
   const files = await getData();
   return (
     <div className="p-7">
-      <div className="w-full sm:w-4/6 mx-auto">
+      <div className="mx-auto max-w-[65ch]">
         {files.map(x => (
           <div key={x.slug} className="flex justify-start items-start my-2">
             <span className="block text-gray-400 flex-0 w-12 whitespace-nowrap">
               {formatDate(new Date(x.date), 'MM-dd')}
             </span>
-            <Tag
-              className={`text-black flex-0 w-12 text-center ${
-                x.type === 'tech' ? 'bg-zinc-400' : 'bg-zinc-300'
-              }`}
-            >
-              {x.type}
-            </Tag>
-            <section className="flex-1">
+            <section className="flex-1 ml-4">
               <Link href={`/blogs/${x.slug}?fileType=${x.fileType}`}>
                 {x.title}
               </Link>
             </section>
+            <Tag
+              className={`text-black flex-0 w-12 text-center ${
+                x.type === 'tech' ? 'bg-blue-300' : 'bg-yellow-300'
+              }`}
+            >
+              {x.type}
+            </Tag>
           </div>
         ))}
       </div>
