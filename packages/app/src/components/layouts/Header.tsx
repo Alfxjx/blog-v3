@@ -18,7 +18,7 @@ function Header() {
         </Link>
       </div>
       <div className="flex items-center">
-        <HomeLink></HomeLink>
+        {/* <HomeLink></HomeLink> */}
         <BlogLink></BlogLink>
         <AboutLink></AboutLink>
         <ShortLink></ShortLink>
