@@ -1,3 +1,4 @@
+import { BuyMeCoffee } from '@/components/buttons/buy-me-a-coffee';
 import { markdownToHtml, formatDate } from '@/core';
 import { markdownReader } from '@/utils';
 
@@ -9,6 +10,9 @@ export default async function Page() {
         className="prose prose-slate dark:prose-invert prose-h2:my-2 px-2"
         dangerouslySetInnerHTML={{ __html: contentInHTML }}
       ></article>
+      <section className="my-4 flex justify-center">
+        <BuyMeCoffee />
+      </section>
       <div className="flex justify-between py-4 mb-8">
         <div className="flex items-center justify-start">
           <img
