@@ -5,7 +5,6 @@ date: '2022-10-08T08:20:00.000Z'
 coverImage: '/assets/blog/guoqing-journy.png'
 type: life
 tag: ['旅游']
-hide: hide
 author:
   name: Alfxjx
   picture: '/assets/authors/alfxjx.jpg'
