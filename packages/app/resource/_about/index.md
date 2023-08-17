@@ -10,9 +10,19 @@ author:
 
 > This is something about me.
 
-I'm Xu Jianxiang, a **frontend developer** work in Fintech/Indutry.
+I'm Xu Jianxiang, a **frontend developer** in Fintech/Indutry.
 
-Using _Vue.js, React, Next.js, Webpack_ and other popular web dev libs or frameworks.
+Things I worked on:
+
+1. admin dashboards base on vue.js / next.js / angular.
+2. micro frontend platform for different pages.
+3. a report table designer base on angular, graphql and spreadsheet.
+4. data visualization dashboard for Fintech & Mining
+
+Stacks:
+
+1. Frameworks: vue.js, next.js, Angular,
+2. Libs & Languages: React, Typescript, RxJS, Webpack, ng-zorro, GraphQL
 
 Things I like to do:
 
@@ -28,3 +38,5 @@ Contact me on [xjxtju@163.com](mailto:xjxtju@163.com) / [xujianxiang@abandon.wor
 or weChat: eGp4NTg0OTcyMDI5
 
 Click here to decode [Base64](https://tool.ip138.com/base64/)
+
+ETH: 0x4112F51E352e6Ce93F57405F90B8a678e121d9A4
