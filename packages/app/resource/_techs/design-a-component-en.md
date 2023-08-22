@@ -6,8 +6,8 @@ date: '2021-10-28T12:52:42.712Z'
 type: tech
 tag: ['ui', 'react']
 author:
-name: Alfxjx
-picture: '/assets/authors/alfxjx.jpg'
+  name: Alfxjx
+  picture: '/assets/authors/alfxjx.jpg'
 language: 'en'
 
 ---
