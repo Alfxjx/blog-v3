@@ -1,32 +1,15 @@
-import Link from 'next/link';
-import { ThemeToggle } from '../theme/theme-toggle';
-import { HomeLink, BlogLink, AboutLink, ShortLink } from './Header';
-
 export function Footer() {
   const thisYear = new Date().getFullYear();
 
   return (
-    <footer className="flex flex-col items-center py-2 bg-neutral-200 text-gray-700 dark:bg-neutral-700 dark:text-gray-200 text-sm">
-      <div className="flex items-center">
-        <HomeLink></HomeLink>
-        <BlogLink></BlogLink>
-        <AboutLink></AboutLink>
-        <ShortLink></ShortLink>
-        <span className="ml-2">
-          <ThemeToggle />
-        </span>
-      </div>
-      <div>
-        <span className="mx-1">Powerd by</span>
-        <Link className="mx-1" href="https://nextjs.org">
-          Next.js
-        </Link>
-        <span className="mx-1">on</span>
-        <Link className="mx-1" href="https://vercel.com">
-          Vercel
-        </Link>
-        <span className="text-red-500">♥</span>
-        <span className="mx-1">2020-{thisYear}</span>
+    <footer className="mt-auto border-t border-stone-200/60 py-8 dark:border-stone-800/60">
+      <div className="mx-auto flex max-w-5xl flex-col items-center justify-between gap-4 px-4 sm:flex-row">
+        <p className="text-sm text-stone-500 dark:text-stone-400">
+          &copy; 2020&ndash;{thisYear} Alfr3d. All rights reserved.
+        </p>
+        <p className="text-sm text-stone-400 dark:text-stone-600">
+          Built with Next.js & Tailwind CSS
+        </p>
       </div>
     </footer>
   );

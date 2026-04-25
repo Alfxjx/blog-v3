@@ -10,7 +10,7 @@ export class MarkdownReader {
   }
 
   getDirectory(fileType: FileTypes) {
-    return join(process.cwd(), `${this.path}/${fileType}`);
+    return join(/*turbopackIgnore: true*/ process.cwd(), `${this.path}/${fileType}`);
   }
 
   getSlugsByFileType(fileType: FileTypes) {

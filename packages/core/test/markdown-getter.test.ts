@@ -5,6 +5,7 @@ describe('getFileBySlug', () => {
   it('should getFileBySlug', () => {
     const mr = new MarkdownReader('test');
     expect(mr.getFileBySlug('_about', 'index.md', ['title'])).toEqual({
+      fileType: '_about',
       title: 'About me',
     });
   });
@@ -15,6 +16,7 @@ describe('getAll', () => {
     const mr = new MarkdownReader('test');
     expect(mr.getAll('_about', ['title'])).toEqual([
       {
+        fileType: '_about',
         title: 'About me',
       },
     ]);

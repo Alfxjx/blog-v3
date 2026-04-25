@@ -8,14 +8,30 @@ module.exports = {
   darkMode: ["class"],
   theme: {
     extend: {
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
-      },
       fontFamily: {
-        mono: ['var(--font-noto-mono)']
-      }
+        sans: ['var(--font-sans)', 'system-ui', 'sans-serif'],
+        serif: ['var(--font-serif)', 'Georgia', 'serif'],
+        mono: ['var(--font-mono)', 'monospace'],
+        hand: ['var(--font-hand)', 'cursive'],
+      },
+      colors: {
+        background: {
+          DEFAULT: '#fafaf9',
+          dark: '#0c0a09',
+        },
+        foreground: {
+          DEFAULT: '#1c1917',
+          dark: '#e7e5e4',
+        },
+        muted: {
+          DEFAULT: '#a8a29e',
+          dark: '#78716c',
+        },
+        accent: {
+          DEFAULT: '#d97706',
+          dark: '#f59e0b',
+        },
+      },
     },
   },
   plugins: [

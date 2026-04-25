@@ -1,3 +1,86 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+@config '../../tailwind.config.js';
+
+@layer base {
+  :root {
+    --bg: #fafaf9;
+    --fg: #1c1917;
+    --muted: #a8a29e;
+    --accent: #d97706;
+    --accent-foreground: #ffffff;
+    --border: #e7e5e4;
+    --ring: #d97706;
+  }
+
+  .dark {
+    --bg: #0c0a09;
+    --fg: #e7e5e4;
+    --muted: #78716c;
+    --accent: #f59e0b;
+    --accent-foreground: #0c0a09;
+    --border: #292524;
+    --ring: #f59e0b;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--bg);
+    color: var(--fg);
+    font-feature-settings: 'rlig' 1, 'calt' 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    background-color: var(--accent);
+    color: var(--accent-foreground);
+  }
+}
+
+@layer components {
+  .prose-custom {
+    @apply prose prose-stone dark:prose-invert max-w-none;
+  }
+
+  .prose-custom h1,
+  .prose-custom h2,
+  .prose-custom h3,
+  .prose-custom h4 {
+    @apply font-serif tracking-tight;
+  }
+
+  .prose-custom a {
+    @apply text-accent dark:text-accent-dark underline decoration-accent/30 dark:decoration-accent-dark/30 underline-offset-4 transition-colors hover:decoration-accent dark:hover:decoration-accent-dark;
+  }
+
+  .prose-custom :not(pre) > code {
+    @apply font-mono text-sm bg-stone-100 dark:bg-stone-800 px-1.5 py-0.5 rounded;
+  }
+
+  .prose-custom pre {
+    @apply bg-stone-200 dark:bg-stone-800 border border-stone-300 dark:border-stone-700 rounded-lg !text-stone-900 dark:!text-stone-200;
+  }
+
+  .prose-custom pre code {
+    @apply !text-stone-900 dark:!text-stone-200 !bg-transparent;
+  }
+
+  .prose-custom blockquote {
+    @apply border-l-2 border-accent dark:border-accent-dark pl-4 italic text-muted dark:text-muted-dark;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* rehype-pretty-code theme switching */
+html:not(.dark) [data-theme='dark'],
+.dark [data-theme='light'] {
+  display: none;
+}

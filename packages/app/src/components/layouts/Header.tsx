@@ -1,33 +1,36 @@
 import { LinkButton } from '../links/base';
-import { cn } from '@/utils';
 import { caveat } from './fonts';
 import Link from 'next/link';
 import { ThemeToggle } from '../theme/theme-toggle';
+import { Search } from '../search';
 
-const HomeLink = () => <LinkButton href="/" label="Home"></LinkButton>;
-const BlogLink = () => <LinkButton href="/blogs" label="Blog"></LinkButton>;
-const AboutLink = () => <LinkButton href="/about" label="About"></LinkButton>;
-const ShortLink = () => <LinkButton href="/short" label="Short"></LinkButton>;
+const navLinks = [
+  { href: '/blogs', label: 'Blog' },
+  { href: '/about', label: 'About' },
+  { href: '/short', label: 'Short' },
+];
 
 function Header() {
   return (
-    <section className="flex-0 flex justify-between item-center box-border p-2 border-b-[1px] fixed top-0 left-0 w-full bg-white dark:bg-black">
-      <div className="mr-2">
-        <Link href={'/'}>
-          <p className={cn(caveat.className)}>Alfr3d</p>
+    <header className="fixed top-0 left-0 right-0 z-50 border-b border-stone-200/50 bg-[var(--bg)]/80 backdrop-blur-md transition-colors dark:border-stone-800/50">
+      <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-4">
+        <Link href="/" className={`text-xl font-bold tracking-tight ${caveat.className}`}>
+          Alfr3d
         </Link>
+        <nav className="flex items-center gap-1">
+          {navLinks.map((link) => (
+            <LinkButton key={link.href} href={link.href} label={link.label} />
+          ))}
+          <div className="ml-2">
+            <Search />
+          </div>
+          <div className="ml-1">
+            <ThemeToggle />
+          </div>
+        </nav>
       </div>
-      <div className="flex items-center">
-        {/* <HomeLink></HomeLink> */}
-        <BlogLink></BlogLink>
-        <AboutLink></AboutLink>
-        <ShortLink></ShortLink>
-        <span className="ml-2">
-          <ThemeToggle />
-        </span>
-      </div>
-    </section>
+    </header>
   );
 }
 
-export { Header, HomeLink, BlogLink, AboutLink, ShortLink };
+export { Header };

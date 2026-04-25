@@ -14,7 +14,7 @@ export const TitleComponent: React.FC<{
   level: number;
   text: string;
 }> = ({ level, text }) => {
-  const TagName = `h${level}` as keyof JSX.IntrinsicElements;
+  const TagName = `h${level}` as keyof React.JSX.IntrinsicElements;
 
   return <TagName>{text}</TagName>;
 };

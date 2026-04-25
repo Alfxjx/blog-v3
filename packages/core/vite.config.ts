@@ -1,7 +1,6 @@
 /// <reference types="vitest" />
 import path from 'path';
 import { defineConfig } from 'vite';
-import { nodePolyfills } from 'vite-plugin-node-polyfills';
 import dts from 'vite-plugin-dts';
 import packageJson from './package.json';
 
@@ -12,12 +11,11 @@ const getPackageName = () => {
 const fileName = {
   es: `${getPackageName()}.mjs`,
   cjs: `${getPackageName()}.cjs`,
-  iife: `${getPackageName()}.iife.js`,
 };
 
 const formats = Object.keys(fileName) as Array<keyof typeof fileName>;
 
-module.exports = defineConfig({
+export default defineConfig({
   base: './',
   build: {
     lib: {
@@ -26,12 +24,12 @@ module.exports = defineConfig({
       formats,
       fileName: format => fileName[format],
     },
+    rollupOptions: {
+      external: ['node:fs', 'node:path'],
+    },
   },
   test: {},
   plugins: [
-    nodePolyfills({
-      protocolImports: true,
-    }),
     dts({
       insertTypesEntry: true,
     }),
