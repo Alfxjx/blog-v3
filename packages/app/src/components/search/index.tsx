@@ -19,7 +19,7 @@ export function Search() {
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState('');
   const [posts, setPosts] = useState<Post[]>([]);
-  const [results, setResults] = useState<Fuse.Result<Post>[]>([]);
+  const [results, setResults] = useState<ReturnType<Fuse<Post>['search']>>([]);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
   const fuseRef = useRef<Fuse<Post> | null>(null);
