@@ -165,9 +165,6 @@ function getFile(slug: string) {
 
 async function getData(slug: string) {
   const file = getFile(slug);
-  if (!file?.title) {
-    return { contentInHTML: '', ...file };
-  }
-  const contentInHTML = await markdownToHtml(file.content);
-  return { contentInHTML, ...file };
+  const contentInHTML = file?.content ? await markdownToHtml(file.content) : '';
+  return { contentInHTML, ...(file || {}) } as any;
 }
