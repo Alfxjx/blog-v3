@@ -1,5 +1,5 @@
 import { Tag } from '@/components/tag';
-import { markdownToHtml, FileTypes, formatDate } from '@/core';
+import { markdownToHtml, formatDate } from '@/core';
 import { markdownReader } from '@/utils';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -8,22 +8,13 @@ import type { Metadata } from 'next';
 
 export async function generateMetadata({
   params,
-  searchParams,
 }: {
   params: Promise<{ slug: string }>;
-  searchParams: Promise<{ fileType: FileTypes }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const { fileType } = await searchParams;
+  const file = getFile(decodeURIComponent(slug));
 
-  const file = await markdownReader.getFileBySlug(
-    fileType,
-    decodeURIComponent(slug),
-    ['title', 'excerpt', 'coverImage', 'date', 'tag'],
-    'file'
-  );
-
-  if (!file.title) {
+  if (!file?.title) {
     return { title: 'Not Found' };
   }
 
@@ -52,19 +43,23 @@ export async function generateMetadata({
   };
 }
 
+export async function generateStaticParams() {
+  const techs = markdownReader
+    .getSlugsByFileType('_techs')
+    .map((slug) => ({ slug: slug.replace(/\.md$/, '') }));
+  const blogs = markdownReader
+    .getSlugsByFileType('_blogs')
+    .map((slug) => ({ slug: slug.replace(/\.md$/, '') }));
+  return [...techs, ...blogs];
+}
+
 export default async function Page({
   params,
-  searchParams,
 }: {
   params: Promise<{ slug: string }>;
-  searchParams: Promise<{ fileType: FileTypes }>;
 }) {
   const { slug } = await params;
-  const { fileType } = await searchParams;
-  const { contentInHTML, ...data } = await getData(
-    fileType,
-    decodeURIComponent(slug)
-  );
+  const { contentInHTML, ...data } = await getData(decodeURIComponent(slug));
 
   if (!data.title) {
     notFound();
@@ -141,13 +136,38 @@ export default async function Page({
   );
 }
 
-async function getData(fileType: FileTypes, slug: string) {
-  const file = await markdownReader.getFileBySlug(
-    fileType,
-    slug,
-    ['content', 'coverImage', 'date', 'tag', 'title', 'author'],
-    'file'
-  );
+function getFile(slug: string) {
+  let file: Record<string, any> | null = null;
+  try {
+    file = markdownReader.getFileBySlug(
+      '_techs',
+      slug,
+      ['title', 'excerpt', 'coverImage', 'date', 'tag', 'author'],
+      'file'
+    );
+  } catch {
+    // not found in _techs
+  }
+  if (!file?.title) {
+    try {
+      file = markdownReader.getFileBySlug(
+        '_blogs',
+        slug,
+        ['title', 'excerpt', 'coverImage', 'date', 'tag', 'author'],
+        'file'
+      );
+    } catch {
+      // not found in _blogs
+    }
+  }
+  return file;
+}
+
+async function getData(slug: string) {
+  const file = getFile(slug);
+  if (!file?.title) {
+    return { contentInHTML: '', ...file };
+  }
   const contentInHTML = await markdownToHtml(file.content);
   return { contentInHTML, ...file };
 }
