@@ -142,7 +142,7 @@ function getFile(slug: string) {
     file = markdownReader.getFileBySlug(
       '_techs',
       slug,
-      ['title', 'excerpt', 'coverImage', 'date', 'tag', 'author'],
+      ['content', 'title', 'excerpt', 'coverImage', 'date', 'tag', 'author'],
       'file'
     );
   } catch {
@@ -153,7 +153,7 @@ function getFile(slug: string) {
       file = markdownReader.getFileBySlug(
         '_blogs',
         slug,
-        ['title', 'excerpt', 'coverImage', 'date', 'tag', 'author'],
+        ['content', 'title', 'excerpt', 'coverImage', 'date', 'tag', 'author'],
         'file'
       );
     } catch {
