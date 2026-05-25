@@ -1,6 +1,7 @@
 import { Tag } from '@/components/tag';
 import { Attachments } from '@/components/attachments';
 import { TableOfContents, MobileTableOfContents } from '@/components/toc';
+import { ShareCard } from '@/components/share-card';
 import { markdownToHtml, formatDate } from '@/core';
 import { markdownReader } from '@/utils';
 import Link from 'next/link';
@@ -117,6 +118,22 @@ export default async function Page({
                 <Tag className="text-xs">{data.tag}</Tag>
               </>
             )}
+            <span className="text-stone-300 dark:text-stone-700">·</span>
+            <ShareCard
+              title={data.title}
+              excerpt={
+                typeof data.excerpt === 'string' ? data.excerpt : undefined
+              }
+              date={data.date}
+              author={data.author}
+              tag={data.tag}
+              slug={decodeURIComponent(slug)}
+              coverImage={
+                typeof data.coverImage === 'string'
+                  ? data.coverImage
+                  : undefined
+              }
+            />
           </div>
         </header>
 
