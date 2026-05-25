@@ -71,6 +71,35 @@
   .prose-custom blockquote {
     @apply border-l-2 border-accent dark:border-accent-dark pl-4 italic text-muted dark:text-muted-dark;
   }
+
+  .prose-custom .heading-anchor {
+    @apply no-underline;
+  }
+
+  /* Table styles */
+  .prose-custom table {
+    @apply w-full text-sm border-collapse;
+  }
+
+  .prose-custom thead {
+    @apply border-b-2 border-stone-300 dark:border-stone-600;
+  }
+
+  .prose-custom th {
+    @apply px-3 py-2.5 text-left font-semibold text-stone-700 dark:text-stone-300 bg-stone-100 dark:bg-stone-900;
+  }
+
+  .prose-custom td {
+    @apply px-3 py-2.5 border-b border-stone-200 dark:border-stone-700 text-stone-700 dark:text-stone-300;
+  }
+
+  .prose-custom tbody tr:nth-child(even) {
+    @apply bg-stone-50 dark:bg-stone-900/40;
+  }
+
+  .prose-custom tbody tr:hover {
+    @apply bg-stone-100 dark:bg-stone-800/60;
+  }
 }
 
 @layer utilities {

@@ -3,6 +3,7 @@ export type {
   FileKeys,
   FileTypes,
   ResponseItem,
+  Attachment,
 } from './markdown-getter';
 
 export { markdownToHtml } from './markdown-getter/markdownToHtml';

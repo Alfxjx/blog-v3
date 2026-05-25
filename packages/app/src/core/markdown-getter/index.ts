@@ -71,6 +71,11 @@ export class MarkdownReader {
 
 type FileKeys = FileKeyStr | 'author';
 
+export interface Attachment {
+  name: string;
+  path: string;
+}
+
 type FileKeyStr =
   | 'title'
   | 'date'
@@ -80,13 +85,15 @@ type FileKeyStr =
   | 'content'
   | 'coverImage'
   | 'excerpt'
-  | 'fileType';
+  | 'fileType'
+  | 'attachments';
 
 type ResponseItem = Record<FileKeyStr, string> & {
   author: {
     name: string;
     picture: string;
   };
+  attachments?: Attachment[];
 };
 
 type FileTypes = '_techs' | '_blogs' | '_about' | '_short';

@@ -10,7 +10,8 @@
     "build:core": "pnpm --filter @blog-v3/core build",
     "build:lib": "pnpm --filter @blog-v3/lib build",
     "dev": "pnpm --filter @blog-v3/app dev",
-    "lint": "prettier -w ./packages"
+    "lint": "prettier -w ./packages",
+    "new-post": "node scripts/new-post.js"
   },
   "keywords": [],
   "author": "",
